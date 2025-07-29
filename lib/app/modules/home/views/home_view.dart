@@ -1,11 +1,9 @@
-// 📁 lib/app/modules/home/views/home_view.dart
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
-  const HomeView({Key? key}) : super(key: key);
+  const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,16 +15,23 @@ class HomeView extends GetView<HomeController> {
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () {
-              // Call the logout method from the controller
               controller.logout();
             },
           ),
         ],
       ),
-      body: const Center(
-        child: Text(
-          'Welcome! You are logged in.',
-          style: TextStyle(fontSize: 20),
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(
+            maxWidth: 600,
+          ), 
+          child: const Center(
+            child: Text(
+              'Welcome! You are logged in.',
+              style: TextStyle(fontSize: 24),
+              textAlign: TextAlign.center,
+            ),
+          ),
         ),
       ),
     );

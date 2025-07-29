@@ -10,11 +10,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'DefaultX',
-
-      // CORRECTED: Use the 'INITIAL' constant which holds the route name string.
       initialRoute: AppPages.INITIAL,
-
-      // This part is correct.
       getPages: AppPages.routes,
     );
   }
