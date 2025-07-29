@@ -43,8 +43,8 @@ class LoginScreen extends GetView<LoginController> {
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
                   colors: [
-                    const Color(0xFF4285f4).withOpacity(0.6),
-                    const Color(0xFF1976d2).withOpacity(0.3),
+                    const Color.fromARGB(153, 66, 133, 244),
+                    const Color.fromARGB(76, 25, 118, 210),
                     Colors.transparent,
                   ],
                   stops: const [0.0, 0.7, 1.0],
@@ -63,8 +63,8 @@ class LoginScreen extends GetView<LoginController> {
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
                   colors: [
-                    const Color(0xFF7C4DFF).withOpacity(0.4),
-                    const Color(0xFF3F51B5).withOpacity(0.2),
+                    const Color.fromARGB(102, 124, 77, 255),
+                    const Color.fromARGB(51, 63, 81, 181),
                     Colors.transparent,
                   ],
                   stops: const [0.0, 0.6, 1.0],
@@ -83,7 +83,7 @@ class LoginScreen extends GetView<LoginController> {
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
                   colors: [
-                    const Color(0xFFE3F2FD).withOpacity(0.3),
+                    Color.fromARGB(76, 227, 242, 253),
                     Colors.transparent,
                   ],
                   stops: const [0.0, 1.0],
@@ -143,17 +143,17 @@ class LoginScreen extends GetView<LoginController> {
                         child: Container(
                           constraints: const BoxConstraints(maxWidth: 400),
                           decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.95),
+                            color: Color.fromARGB(242, 255, 255, 255),
                             borderRadius: BorderRadius.circular(20),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.1),
+                                color: Color.fromARGB(25, 0, 0, 0),
                                 blurRadius: 30,
                                 offset: const Offset(0, 15),
                               ),
                             ],
                             border: Border.all(
-                              color: Colors.white.withOpacity(0.2),
+                              color: Color.fromARGB(51, 255, 255, 255),
                               width: 1,
                             ),
                           ),
