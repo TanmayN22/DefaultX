@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ForgotPasswordButton extends StatelessWidget {
-  const ForgotPasswordButton({
-    super.key,
-  });
+  const ForgotPasswordButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +19,10 @@ class ForgotPasswordButton extends StatelessWidget {
           colorText: Colors.white,
         );
       },
-      child: const Text('Forgot Password?'),
+      child: const Text(
+        'Forgot Password?',
+        style: TextStyle(color: Colors.black),
+      ),
     );
   }
 }

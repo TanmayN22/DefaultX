@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginButton extends StatelessWidget {
-  const LoginButton({
-    super.key,
-    required this.controller,
-  });
+  const LoginButton({super.key, required this.controller});
 
   final LoginController controller;
 
@@ -21,13 +18,19 @@ class LoginButton extends StatelessWidget {
                   controller.login();
                 },
                 style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  textStyle: const TextStyle(
+                  backgroundColor: const Color.fromARGB(255, 160, 193, 246),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+                child: const Text(
+                  'Login',
+                  style: TextStyle(
                     fontSize: 18,
+                    color: Colors.black,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                child: const Text('Login'),
               ),
     );
   }
