@@ -1,11 +1,12 @@
-import 'package:defaultx/app/modules/login/controllers/login_controller.dart';
+// lib/app/modules/auth/views/widgets/login_button.dart
+import 'package:defaultx/app/modules/login/controllers/login_controller.dart'; // Updated path and name
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginButton extends StatelessWidget {
   const LoginButton({super.key, required this.controller});
 
-  final LoginController controller;
+  final LoginController controller; // Updated controller type
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +23,10 @@ class LoginButton extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
+                  minimumSize: const Size(
+                    double.infinity,
+                    50,
+                  ), // Make button full width and height
                 ),
                 child: const Text(
                   'Login',

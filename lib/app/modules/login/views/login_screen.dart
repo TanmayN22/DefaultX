@@ -1,5 +1,5 @@
-// login_screen.dart
-import 'package:defaultx/app/modules/login/views/widgets/background.dart';
+// lib/app/modules/login/views/login_screen.dart
+import 'package:defaultx/app/modules/login/views/widgets/animated_background.dart';
 import 'package:defaultx/app/modules/login/views/widgets/logo_section.dart';
 import 'package:defaultx/app/modules/login/views/widgets/login_form_section.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +24,7 @@ class LoginScreen extends GetView<LoginController> {
               child: Row(
                 children: [
                   // Left side - Logo section
-                  Expanded(
+                  const Expanded(
                     flex: 1,
                     child: LogoSection(),
                   ),
