@@ -3,7 +3,7 @@ import 'package:defaultx/app/modules/login/controllers/login_controller.dart';
 import 'package:defaultx/app/modules/login/views/widgets/forgot_password_button.dart';
 import 'package:defaultx/app/modules/login/views/widgets/login_button.dart';
 import 'package:defaultx/app/modules/login/views/widgets/password_field_widget.dart';
-import 'package:defaultx/app/modules/login/views/widgets/username_field_widget.dart';
+import 'package:defaultx/app/modules/login/views/widgets/email_field_widget.dart';
 import 'package:flutter/material.dart';
 
 class LoginFormSection extends StatelessWidget {
@@ -90,7 +90,7 @@ class _LoginForm extends StatelessWidget {
       key: controller.loginFormKey,
       child: Column(
         children: [
-          UsernameFieldWidget(controller: controller),
+          EmailFieldWidget(controller: controller),
           const SizedBox(height: 16),
           PasswordFieldWidget(controller: controller),
           const SizedBox(height: 24),
