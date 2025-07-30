@@ -121,9 +121,9 @@ Please contact the team for commercial licensing.
 
 ## 🤝 Contributors
 
-* \[{Piyush Das] – ML Developer
-* \[Tanmay Nayak] – Flutter Developer, UI/UX Designer
-* \[Kaustubh Gondkar] – Flutter Developer 
+* Piyush Das – ML Developer
+* Tanmay Nayak – Flutter Developer, UI/UX Designer
+* Kaustubh Gondkar – Flutter Developer 
 
 ---
 
