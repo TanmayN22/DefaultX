@@ -1,5 +1,5 @@
 // lib/app/modules/auth/views/widgets/email_field_widget.dart
-import 'package:defaultx/app/modules/auth/controllers/auth_controller.dart'; // Updated path and name
+import 'package:defaultx/app/modules/login/controllers/login_controller.dart'; // Updated path and name
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -7,7 +7,7 @@ class EmailFieldWidget extends StatelessWidget {
   // Renamed class
   const EmailFieldWidget({super.key, required this.controller});
 
-  final AuthController controller; // Updated controller type
+  final LoginController controller; // Updated controller type
 
   @override
   Widget build(BuildContext context) {

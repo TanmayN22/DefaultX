@@ -1,30 +1,28 @@
-// lib/app/modules/auth/controllers/auth_controller.dart
+// lib/app/modules/login/controllers/login_controller.dart
+
 import 'package:defaultx/app/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http; // Import http
-import 'dart:convert'; // For json encoding/decoding
-import 'package:shared_preferences/shared_preferences.dart'; // For local storage
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class AuthController extends GetxController {
-  // Renamed class
-  final GlobalKey<FormState> authFormKey =
-      GlobalKey<FormState>(); // Renamed key
+class LoginController extends GetxController {
+  // CRITICAL FIX: Ensure this key name is 'loginFormKey'
+  final GlobalKey<FormState> loginFormKey =
+      GlobalKey<FormState>(); // <--- THIS LINE NEEDS TO BE CORRECTED
 
-  final emailController = TextEditingController(); // Changed to email
+  final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   final isLoading = false.obs;
   final isPasswordHidden = true.obs;
 
-  // Base URL for your backend API
-  final String _baseUrl =
-      'http://localhost:3000/api'; // Adjust if your backend runs on a different IP/Port
+  final String _baseUrl = 'http://localhost:3000/api';
 
   @override
   void onInit() {
     super.onInit();
-    // Optional: Check for existing token on app start
     _checkLoginStatus();
   }
 
@@ -32,26 +30,23 @@ class AuthController extends GetxController {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('jwt_token');
     if (token != null && token.isNotEmpty) {
-      // You might want to validate the token with the backend here
-      // For simplicity, we'll assume it's valid if present
       Get.offAllNamed(AppRoutes.HOME);
     }
   }
 
   Future<void> login() async {
-    if (!authFormKey.currentState!.validate()) {
-      // Updated key
+    // Also ensure the validation line uses 'loginFormKey'
+    if (!loginFormKey.currentState!.validate()) {
+      // <--- THIS LINE ALSO NEEDS TO BE CORRECTED
       return;
     }
-
     try {
       isLoading.value = true;
-
       final response = await http.post(
         Uri.parse('$_baseUrl/login'),
         headers: {'Content-Type': 'application/json'},
         body: json.encode({
-          'email': emailController.text, // Changed to email
+          'email': emailController.text,
           'password': passwordController.text,
         }),
       );
@@ -60,7 +55,6 @@ class AuthController extends GetxController {
         final Map<String, dynamic> responseData = json.decode(response.body);
         final String token = responseData['token'];
 
-        // Store the token securely (e.g., using shared_preferences or flutter_secure_storage)
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('jwt_token', token);
 
@@ -85,7 +79,7 @@ class AuthController extends GetxController {
         );
       }
     } catch (e) {
-      print('Error during login: $e'); // Log the error for debugging
+      print('Error during login: $e');
       Get.snackbar(
         'Login Failed',
         'Could not connect to the server. Please check your internet connection and try again.',
@@ -98,16 +92,15 @@ class AuthController extends GetxController {
     }
   }
 
-  // Add a logout function to clear the token
   Future<void> logout() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.remove('jwt_token'); // Clear the stored token
-    Get.offAllNamed(AppRoutes.AUTH); // Navigate back to auth screen
+    await prefs.remove('jwt_token');
+    Get.offAllNamed(AppRoutes.LOGIN);
   }
 
   @override
   void onClose() {
-    emailController.dispose(); // Changed to email
+    emailController.dispose();
     passwordController.dispose();
     super.onClose();
   }

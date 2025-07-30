@@ -1,12 +1,12 @@
 // lib/app/modules/auth/views/widgets/login_button.dart
-import 'package:defaultx/app/modules/auth/controllers/auth_controller.dart'; // Updated path and name
+import 'package:defaultx/app/modules/login/controllers/login_controller.dart'; // Updated path and name
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginButton extends StatelessWidget {
   const LoginButton({super.key, required this.controller});
 
-  final AuthController controller; // Updated controller type
+  final LoginController controller; // Updated controller type
 
   @override
   Widget build(BuildContext context) {

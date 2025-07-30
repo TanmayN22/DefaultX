@@ -1,19 +1,19 @@
-import 'package:defaultx/app/modules/auth/views/auth_screen.dart';
+import 'package:defaultx/app/modules/login/views/login_screen.dart';
 import 'package:defaultx/app/routes/app_routes.dart';
 import 'package:get/get.dart';
 
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
-import '../modules/auth/bindings/auth_binding.dart';
+import '../modules/login/bindings/login_binding.dart';
 
 class AppPages {
-  static const INITIAL = AppRoutes.AUTH;
+  static const INITIAL = AppRoutes.LOGIN;
 
   static final routes = [
     GetPage(
-      name: AppRoutes.AUTH,
-      page: () => const AuthScreen(),
-      binding: AuthBinding(),
+      name: AppRoutes.LOGIN,
+      page: () => const LoginScreen(),
+      binding: LoginBinding(),
     ),
     GetPage(
       name: AppRoutes.HOME,
