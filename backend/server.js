@@ -2,13 +2,23 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
-const cors = require("cors"); // Import cors
+const cors = require("cors");
+require("dotenv").config(); // <--- Add this line at the very top
 
 const app = express();
+// Now, PORT and JWT_SECRET will be loaded from process.env, which includes .env file variables
 const PORT = process.env.PORT || 3000;
-const JWT_SECRET = process.env.JWT_SECRET || "your_super_secret_jwt_key_here"; // Use a strong, random key in production!
+const JWT_SECRET = process.env.JWT_SECRET; // <--- REMOVE THE FALLBACK HERE! If not set, it's a critical error.
 
-// Whitelisted users
+// IMPORTANT: In a real application, you should *always* ensure JWT_SECRET is set.
+if (!JWT_SECRET) {
+  console.error(
+    "FATAL ERROR: JWT_SECRET is not defined. Please set it in your .env file or environment variables."
+  );
+  process.exit(1); // Exit the process if the secret is missing
+}
+
+// Whitelisted users (for demo purposes)
 const whitelistedUsers = [
   { email: "kaustubh130104@gmail.com", password: "password123" },
   { email: "piyushdas2004@gmail.com", password: "password123" },
@@ -16,7 +26,7 @@ const whitelistedUsers = [
 ];
 
 // Middleware
-app.use(cors()); // Enable CORS for all routes
+app.use(cors());
 app.use(bodyParser.json());
 
 // --- Authentication Route ---
@@ -29,14 +39,12 @@ app.post("/api/login", (req, res) => {
       .json({ message: "Email and password are required." });
   }
 
-  // 1. Check if email ends with @gmail.com
   if (!email.endsWith("@gmail.com")) {
     return res
       .status(401)
       .json({ message: "Only @gmail.com accounts are allowed." });
   }
 
-  // 2. Check if user is whitelisted
   const user = whitelistedUsers.find(
     (u) => u.email === email && u.password === password
   );
@@ -47,32 +55,30 @@ app.post("/api/login", (req, res) => {
       .json({ message: "Invalid credentials or user not whitelisted." });
   }
 
-  // 3. Generate JWT Token
   const token = jwt.sign(
-    { email: user.email, role: "user" }, // Payload
-    JWT_SECRET,
-    { expiresIn: "1h" } // Token expires in 1 hour
+    { email: user.email, role: "user" },
+    JWT_SECRET, // Using the secret from environment variable
+    { expiresIn: "1h" }
   );
 
   res.json({ message: "Login successful!", token });
 });
 
 // --- Protected Route Example (for demonstration) ---
-// This middleware verifies the JWT token
 function verifyToken(req, res, next) {
-  const token = req.headers["authorization"]; // Bearer TOKEN
+  const token = req.headers["authorization"];
   if (!token) {
     return res.status(403).json({ message: "No token provided." });
   }
 
-  // Remove "Bearer " prefix if present
   const cleanToken = token.startsWith("Bearer ") ? token.slice(7) : token;
 
   jwt.verify(cleanToken, JWT_SECRET, (err, decoded) => {
+    // Using the secret from environment variable
     if (err) {
       return res.status(401).json({ message: "Failed to authenticate token." });
     }
-    req.user = decoded; // Add decoded payload to request
+    req.user = decoded;
     next();
   });
 }
