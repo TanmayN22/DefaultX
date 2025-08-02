@@ -1,4 +1,6 @@
 import 'package:defaultx/app/routes/app_pages.dart';
+import 'package:defaultx/app/routes/app_routes.dart';
+import 'package:defaultx/app/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -7,10 +9,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authService = Get.find<AuthService>();
+
     return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'DefaultX',
-      initialRoute: AppPages.INITIAL,
+      title: 'DefaultX App',
+      initialRoute: authService.isLoggedIn ? AppRoutes.HOME : AppRoutes.LOGIN,
       getPages: AppPages.routes,
     );
   }
