@@ -1,6 +1,6 @@
+import 'package:defaultx/app/core/services/auth_service.dart';
 import 'package:defaultx/app/routes/app_pages.dart';
 import 'package:defaultx/app/routes/app_routes.dart';
-import 'package:defaultx/app/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

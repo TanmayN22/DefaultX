@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 // Make sure you have imported your services and routes
-import 'app/services/api_service.dart';
-import 'app/services/auth_service.dart';
+import 'app/core/services/api_service.dart';
+import 'app/core/services/auth_service.dart';
 
 // The main function MUST be async
 Future<void> main() async {
