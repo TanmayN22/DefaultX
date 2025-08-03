@@ -1,14 +1,12 @@
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
 
 /// AuthService
 ///
 /// This service is responsible for handling the user's authentication state.
-/// It securely stores and retrieves the JWT (JSON Web Token).
+/// It stores and retrieves the JWT using SharedPreferences (no Keychain required).
 class AuthService extends GetxService {
-  final _storage = const FlutterSecureStorage();
   final _isLoggedIn = false.obs;
-
   static const _tokenKey = 'jwt_token';
 
   /// A public getter to reactively check the login status from anywhere in the app.
@@ -21,27 +19,30 @@ class AuthService extends GetxService {
     _checkTokenOnStartup();
   }
 
-  Future<void> _checkTokenOnStartup() async {
+  Future _checkTokenOnStartup() async {
     final token = await getToken();
     if (token != null) {
       _isLoggedIn.value = true;
     }
   }
 
-  /// Securely saves the JWT to the device after a successful login.
+  /// Saves the JWT using SharedPreferences after a successful login.
   Future<void> saveToken(String token) async {
-    await _storage.write(key: _tokenKey, value: token);
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_tokenKey, token);
     _isLoggedIn.value = true;
   }
 
   /// Retrieves the stored JWT. Returns null if no token is found.
   Future<String?> getToken() async {
-    return await _storage.read(key: _tokenKey);
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(_tokenKey);
   }
 
   /// Deletes the JWT when the user logs out.
   Future<void> clearToken() async {
-    await _storage.delete(key: _tokenKey);
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_tokenKey);
     _isLoggedIn.value = false;
   }
 }
