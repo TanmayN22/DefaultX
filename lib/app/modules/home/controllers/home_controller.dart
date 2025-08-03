@@ -20,19 +20,19 @@ class HomeController extends GetxController {
     // Load high-risk applicants with IDs
     highRiskApplicants.value = [
       {
-        'id': 'USR001', // Added ID field
+        'id': '100621.0', // Added ID field
         'date': '2025-07-8',
         'creditScore': 580,
         'riskLevel': 'High',
       },
       {
-        'id': 'USR002', // Added ID field
+        'id': '100311.0', // Added ID field
         'date': '2025-07-22',
         'creditScore': 620,
         'riskLevel': 'Medium',
       },
       {
-        'id': 'USR003', // Added ID field
+        'id': '100299.0', // Added ID field
         'date': '2025-07-28',
         'creditScore': 550,
         'riskLevel': 'High',
@@ -42,13 +42,13 @@ class HomeController extends GetxController {
     // Load anomalies
     anomalies.value = [
       {
-        'name': '1002329',
+        'name': '100232.0',
         'date': '2025-07-2',
         'type': 'Sudden Score Drop',
         'description': 'Credit score dropped by 150 points in the last month.',
       },
       {
-        'name': '1002384',
+        'name': '100679.0',
         'date': '2025-07-12',
         'type': 'Unusual Application Pattern',
         'description': 'Multiple applications submitted within a short period.',

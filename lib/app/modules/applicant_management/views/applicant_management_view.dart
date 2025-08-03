@@ -1,4 +1,5 @@
 // lib/app/modules/applicant_management/views/applicant_management_view.dart
+import 'package:defaultx/app/core/widgets/common_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../data/models/applicant_model.dart';
@@ -10,31 +11,27 @@ class ApplicantManagementView extends GetView<ApplicantManagementController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Applicant Management'),
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(80.0),
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: _buildFilterBar(),
-          ),
+      appBar: CommonAppBar(currentPage: 'Applications'),
+      // <-- MODIFIED: The entire body structure is updated.
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            // The filter bar is now the first widget in the body's Column.
+            _buildFilterBar(),
+            const SizedBox(height: 16.0),
+            // Expanded makes the table take up all remaining vertical space.
+            Expanded(
+              child: Obx(() {
+                if (controller.isLoading.value) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                // The PaginatedDataTable will fill the space provided by Expanded.
+                return _buildPaginatedDataTable();
+              }),
+            ),
+          ],
         ),
-      ),
-      body: SingleChildScrollView(
-        // <-- MODIFIED: Simplified to a single Obx wrapper.
-        // This is cleaner and correctly rebuilds its child when any reactive
-        // variable inside it (like isLoading or filteredApplicants) changes.
-        child: Obx(() {
-          if (controller.isLoading.value) {
-            return const Center(
-              child: Padding(
-                padding: EdgeInsets.all(32.0),
-                child: CircularProgressIndicator(),
-              ),
-            );
-          }
-          return _buildPaginatedDataTable();
-        }),
       ),
     );
   }
@@ -122,6 +119,8 @@ class ApplicantManagementView extends GetView<ApplicantManagementController> {
   }
 
   Widget _buildPaginatedDataTable() {
+    // This no longer needs a SingleChildScrollView because the PaginatedDataTable
+    // handles its own scrolling via pagination, and its height is constrained by Expanded.
     return SizedBox(
       width: double.infinity,
       child: PaginatedDataTable(
@@ -142,7 +141,6 @@ class ApplicantManagementView extends GetView<ApplicantManagementController> {
           ),
           DataColumn(label: const Text('Status'), onSort: controller.onSort),
         ],
-        // The source is now rebuilt correctly whenever controller.filteredApplicants changes.
         source: ApplicantDataSource(controller.filteredApplicants),
       ),
     );
@@ -171,13 +169,8 @@ class ApplicantDataSource extends DataTableSource {
       status = 'Approved';
     }
 
-    // <-- MODIFIED: This is the critical fix.
-    // Adding a unique ValueKey to each row tells Flutter how to update
-    // the table correctly when the underlying data changes.
     return DataRow(
-      // <-- CHANGE THIS
-      key: ValueKey(applicant.skIdCurr), // This is now correct!
-      // index: index, <-- REMOVE THIS LINE
+      key: ValueKey(applicant.skIdCurr),
       cells: [
         DataCell(Text(applicant.nameContractType ?? 'N/A')),
         DataCell(Text(applicant.skIdCurr.toString())),
@@ -189,7 +182,6 @@ class ApplicantDataSource extends DataTableSource {
 
   @override
   bool get isRowCountApproximate => false;
-  // This rowCount is now correctly derived from the filtered list.
   @override
   int get rowCount => _applicants.length;
   @override

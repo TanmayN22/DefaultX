@@ -16,7 +16,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.white,
       elevation: 0,
       actions: [
-        _buildNavButton('Dashboard', '/dashboard'),
+        _buildNavButton('Home', '/home'),
         _buildNavButton('Applications', '/applications'),
         _buildNavButton('Reports', '/reports'),
         _buildNavButton('Settings', '/settings'),

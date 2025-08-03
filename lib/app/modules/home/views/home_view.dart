@@ -15,7 +15,7 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFF5F5F5),
-      appBar: CommonAppBar(currentPage: 'Dashboard'),
+      appBar: CommonAppBar(currentPage: 'Home'),
       body: SingleChildScrollView(
         padding: EdgeInsets.only(top: 24, bottom: 24, left: 100, right: 100),
         child: Column(
