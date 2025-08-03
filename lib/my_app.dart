@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
     final authService = Get.find<AuthService>();
 
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'DefaultX App',
       initialRoute: authService.isLoggedIn ? AppRoutes.HOME : AppRoutes.LOGIN,
       getPages: AppPages.routes,

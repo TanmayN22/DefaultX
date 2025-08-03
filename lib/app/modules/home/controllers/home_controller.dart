@@ -1,41 +1,58 @@
 import 'package:get/get.dart';
-import '../../../core/services/api_service.dart';
 
-/// HomeController
-///
-/// Fetches and manages the data for the home screen after a user is logged in.
 class HomeController extends GetxController {
-  final ApiService _apiService = Get.find<ApiService>();
+  // Observable data for real-time updates
+  var totalApplications = 12456.obs;
+  var defaultRiskDistribution = 15.0.obs;
+  var averageCreditScore = 720.obs;
+  var totalAlerts = 2.obs;
 
-  // Reactive variables to hold the user's data and loading state.
-  // The UI will automatically update when these change.
-  final userEmail = ''.obs;
-  final isLoading = true.obs; // Start with loading true
+  var highRiskApplicants = <Map<String, dynamic>>[].obs;
+  var anomalies = <Map<String, dynamic>>[].obs;
 
-  /// Called by GetX automatically when the controller is initialized.
   @override
   void onInit() {
     super.onInit();
-    // Fetch the user's profile as soon as the home screen loads.
-    fetchUserProfile();
+    loadDashboardData();
   }
 
-  /// Fetches user data from the protected API route.
-  void fetchUserProfile() async {
-    try {
-      isLoading.value = true;
-      // Call the method on our ApiService. The token is added automatically.
-      final response = await _apiService.getProtectedData();
+  void loadDashboardData() {
+    // Load high-risk applicants with IDs
+    highRiskApplicants.value = [
+      {
+        'id': 'USR001', // Added ID field
+        'date': '2025-07-8',
+        'creditScore': 580,
+        'riskLevel': 'High',
+      },
+      {
+        'id': 'USR002', // Added ID field
+        'date': '2025-07-22',
+        'creditScore': 620,
+        'riskLevel': 'Medium',
+      },
+      {
+        'id': 'USR003', // Added ID field
+        'date': '2025-07-28',
+        'creditScore': 550,
+        'riskLevel': 'High',
+      },
+    ];
 
-      if (response.statusCode == 200) {
-        // Extract the email from the nested 'user' object in the API response.
-        userEmail.value = response.data['user']['email'];
-      }
-    } catch (e) {
-      print('Error fetching profile: $e');
-      Get.snackbar('Error', 'Could not fetch user profile.');
-    } finally {
-      isLoading.value = false;
-    }
+    // Load anomalies
+    anomalies.value = [
+      {
+        'name': '1002329',
+        'date': '2025-07-2',
+        'type': 'Sudden Score Drop',
+        'description': 'Credit score dropped by 150 points in the last month.',
+      },
+      {
+        'name': '1002384',
+        'date': '2025-07-12',
+        'type': 'Unusual Application Pattern',
+        'description': 'Multiple applications submitted within a short period.',
+      },
+    ];
   }
 }

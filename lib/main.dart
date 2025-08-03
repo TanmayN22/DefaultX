@@ -19,10 +19,10 @@ Future<void> main() async {
 
 /// This function creates and registers your services with GetX.
 Future<void> initServices() async {
-  print("Initializing services...");
+  debugPrint("Initializing services...");
   // Put AuthService first
   await Get.putAsync(() async => AuthService());
   // Then put ApiService, which depends on AuthService
   Get.put(ApiService());
-  print("Services initialized.");
+  debugPrint("Services initialized.");
 }
