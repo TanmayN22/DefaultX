@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import '../../../services/api_service.dart';
+import '../../../core/services/api_service.dart';
 
 /// HomeController
 ///

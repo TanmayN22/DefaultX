@@ -6,8 +6,8 @@ import 'package:get/get.dart';
 import 'package:dio/dio.dart'; // Import Dio for specific error handling
 
 // Import the services we created
-import '../../../services/api_service.dart';
-import '../../../services/auth_service.dart';
+import '../../../core/services/api_service.dart';
+import '../../../core/services/auth_service.dart';
 
 class LoginController extends GetxController {
   // --- Your existing properties are kept ---
