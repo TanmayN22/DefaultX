@@ -2,20 +2,24 @@ import 'package:flutter/material.dart';
 
 class RiskChart extends StatelessWidget {
   final String title;
-  final String value;
+  final double score; // Changed from String 'value' to double 'score'
   final String subtitle;
 
   const RiskChart({
-    Key? key,
+    super.key,
     required this.title,
-    required this.value,
+    required this.score, // Changed from String 'value' to double 'score'
     required this.subtitle,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
+    // Normalize the score to a 0.0-1.0 scale for the progress indicator
+    // Assumes a score range of 300 to 850
+    final double normalizedScore = (score - 300) / (850 - 300);
+
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
@@ -24,7 +28,7 @@ class RiskChart extends StatelessWidget {
             color: Colors.grey.withOpacity(0.1),
             spreadRadius: 0,
             blurRadius: 10,
-            offset: Offset(0, 2),
+            offset: const Offset(0, 2),
           ),
         ],
       ),
@@ -33,53 +37,38 @@ class RiskChart extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
               color: Colors.black87,
             ),
           ),
-          SizedBox(height: 20),
-
-          // Circular Chart Representation
+          const SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.only(left: 43),
             child: Center(
-              child: Container(
+              child: SizedBox(
                 width: 150,
                 height: 150,
                 child: Stack(
+                  alignment: Alignment.center,
                   children: [
-                    Container(
-                      width: 120,
-                      height: 120,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.grey[100],
-                      ),
-                    ),
-                    Container(
+                    SizedBox(
                       width: 120,
                       height: 120,
                       child: CircularProgressIndicator(
-                        value: 0.72, // 720/1000 for credit score
+                        value: normalizedScore, // Use the dynamic normalized score
                         strokeWidth: 8,
                         backgroundColor: Colors.grey[200],
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                        valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
                       ),
                     ),
-                    Container(
-                      width: 120,
-                      height: 120,
-                      child: Center(
-                        child: Text(
-                          value,
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black87,
-                          ),
-                        ),
+                    Text(
+                      score.toInt().toString(), // Display the integer part of the score
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
                       ),
                     ),
                   ],
@@ -87,8 +76,7 @@ class RiskChart extends StatelessWidget {
               ),
             ),
           ),
-
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Padding(
             padding: const EdgeInsets.only(left: 45),
             child: Text(

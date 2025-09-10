@@ -1,4 +1,5 @@
 import 'package:defaultx/app/core/widgets/common_nav_bar.dart';
+import 'package:defaultx/app/core/widgets/kochikar_tech_text.dart';
 import 'package:defaultx/app/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -70,6 +71,13 @@ class SettingsView extends StatelessWidget {
           ],
         ),
       ),
+      // Add footer here
+      persistentFooterButtons: const [
+        Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Center(child: KochikarTech()),
+        ),
+      ],
     );
   }
 }

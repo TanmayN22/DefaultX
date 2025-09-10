@@ -17,9 +17,8 @@ class MetricCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 200, // Fixed width to make it square
-      height: 200, // Fixed height to make it square
-      padding: EdgeInsets.all(20),
+      // Remove fixed width and height, let it fill available space
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
@@ -28,14 +27,13 @@ class MetricCard extends StatelessWidget {
             color: Colors.grey.withOpacity(0.1),
             spreadRadius: 0,
             blurRadius: 10,
-            offset: Offset(0, 2),
+            offset: const Offset(0, 2),
           ),
         ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment:
-            MainAxisAlignment.center, // Center the content vertically
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
             title,
@@ -44,27 +42,28 @@ class MetricCard extends StatelessWidget {
               color: Colors.grey[600],
               fontWeight: FontWeight.w500,
             ),
-            maxLines: 2, // Allow title to wrap if needed
+            maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Text(
             value,
-            style: TextStyle(
-              fontSize: 32, // Slightly larger for better proportion
+            style: const TextStyle(
+              fontSize: 32,
               fontWeight: FontWeight.bold,
               color: Colors.black87,
             ),
           ),
-          SizedBox(height: 8),
-          Text(
-            change,
-            style: TextStyle(
-              fontSize: 14,
-              color: isPositive ? Colors.green : Colors.red,
-              fontWeight: FontWeight.w500,
+          const SizedBox(height: 8),
+          if (change.isNotEmpty)
+            Text(
+              change,
+              style: TextStyle(
+                fontSize: 14,
+                color: isPositive ? Colors.green : Colors.red,
+                fontWeight: FontWeight.w500,
+              ),
             ),
-          ),
         ],
       ),
     );

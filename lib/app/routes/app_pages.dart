@@ -1,6 +1,7 @@
 import 'package:defaultx/app/modules/applicant_management/bindings/applicant_management_binding.dart';
 import 'package:defaultx/app/modules/applicant_management/views/applicant_management_view.dart';
 import 'package:defaultx/app/modules/login/views/login_screen.dart';
+import 'package:defaultx/app/modules/reports/binding/report_binding.dart';
 import 'package:defaultx/app/modules/reports/views/reports_view.dart';
 import 'package:defaultx/app/modules/settings/views/settings_view.dart';
 import 'package:defaultx/app/routes/app_routes.dart';
@@ -29,7 +30,11 @@ class AppPages {
       page: () => ApplicantManagementView(),
       binding: ApplicantManagementBinding(),
     ),
-    GetPage(name: AppRoutes.REPORTS, page: () => ReportsView()),
+    GetPage(
+      name: AppRoutes.REPORTS,
+      page: () => ReportsView(),
+      binding: ReportsBinding(),
+    ),
     GetPage(name: AppRoutes.SETTINGS, page: () => SettingsView()),
   ];
 }

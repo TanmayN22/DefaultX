@@ -23,7 +23,6 @@ const whitelistedUsers = [
   { email: "kaustubh130104@gmail.com", password: "password123" },
   { email: "piyushdas2004@gmail.com", password: "password123" },
   { email: "nayaktanmayg@gmail.com", password: "password123" },
-  { email: "test"}
 ];
 
 // Middleware
